@@ -5,7 +5,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
+/**
+ * 복습이 필요한 문제
+ * 내 생각대로 풀었을 때 자꾸 메모리 초과로 터진다...
+ * 어디서 터지는 건지 아직 모르겠다.
+ * 분명 로직은 맞는데
+ */
 public class 샘터 { // start of class
+    // 샘터 / 골드 5 / 그래프 bfs
     private static class Store { // start of class Store
         long now, weight; // 변수 선언
 
