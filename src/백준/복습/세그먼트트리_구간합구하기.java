@@ -51,6 +51,8 @@ public class 세그먼트트리_구간합구하기 {
             int c = Integer.parseInt(st.nextToken());
 
             if (a == 1) { // a가 1인 경우 수 갱신
+                // dif -> index번째 수를 val로 변경한다 하면 그 수가 얼만큼 변경했는지 알아야 한다
+                // 변경한 차이 값 = dif
                 long dif = c - arr[b];
                 arr[b] = c;
                 update(1, N, 1, b, dif);
