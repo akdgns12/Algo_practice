@@ -78,49 +78,49 @@ public class 탈출복습 {
      * -> 기존에 큐에 들어있던 비버의 위치에서 퍼져야 하기 때문에
      */
     static void bfs() {
-        while(!biber.isEmpty()) {
+        while (!biber.isEmpty()) {
             int len = water.size();
             // 물퍼트리기
-            for(int i=0; i<len; i++) {
+            for (int i = 0; i < len; i++) {
                 Node p = water.poll();
                 int x = p.x;
                 int y = p.y;
 
-                for(int j=0; j<4; j++) {
+                for (int j = 0; j < 4; j++) {
                     int nx = x + dx[j];
                     int ny = y + dy[j];
                     // 범위를 벗어나면 skip
-                    if(nx < 0 || ny < 0 || nx >= r || ny >= c) continue;
+                    if (nx < 0 || ny < 0 || nx >= r || ny >= c) continue;
                     // 인접한 좌표가 도착지이거나 벽이거나 물이 차있는지역이라면 skip
-                    if(map[nx][ny] == 'D' || map[nx][ny] == 'X' || map[nx][ny] == '*') continue;
+                    if (map[nx][ny] == 'D' || map[nx][ny] == 'X' || map[nx][ny] == '*') continue;
                     map[nx][ny] = '*';
                     water.add(new Node(nx, ny));
                 }
             }
 
             len = biber.size();
-            for(int i=0; i<len; i++) {
+            for (int i = 0; i < len; i++) {
                 // 고슴도치 이동
                 Node p = biber.poll();
                 int x = p.x;
                 int y = p.y;
                 int time = p.time;
 
-                for(int j=0; j<4; j++) {
+                for (int j = 0; j < 4; j++) {
                     int nx = x + dx[j];
                     int ny = y + dy[j];
 
-                    if(nx < 0 || ny < 0 || nx >= r || ny >= c) continue;
-                    if(map[nx][ny] == 'D') {
-                        min = Math.min(min, time+1);
+                    if (nx < 0 || ny < 0 || nx >= r || ny >= c) continue;
+                    if (map[nx][ny] == 'D') {
+                        min = Math.min(min, time + 1);
                         return;
-                    }
-                    else if(map[nx][ny] == '.') {
+                    } else if (map[nx][ny] == '.') {
                         map[nx][ny] = 'S';
-                        biber.add(new Node(nx, ny, time+1));
+                        biber.add(new Node(nx, ny, time + 1));
                     }
                 }
             }
 
         }
+    }
 }
