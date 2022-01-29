@@ -36,7 +36,7 @@ public class 벽부수고이동하기복습3 {
 
     static void bfs(int x, int y){
         Queue<Node> q = new LinkedList<>();
-        q.offer(new Node(x, y, 1, 0));
+        q.offer(new Node(x, y, 1, 0)); // 문제 주의해서 읽자, 여긴 시작위치 포함 x
         visited[x][y][0] = true;
 
         while(!q.isEmpty()){

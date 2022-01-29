@@ -12,6 +12,12 @@ public class 말이되고픈원숭이 {
     static int[] hdy = {-1, 1, -2, 2, -2, 2, -1, 1};
     static int[] dx = {0, 1, 0 ,-1}; // 원숭이가 이동할 수 있는 4방향
     static int[] dy = {1, 0, -1, 0};
+    /*
+        visited 배열을 단순히 2차원으로 선언하면 말과 원숭이의 서로다른 이동경로를
+        구분할 수 없기 때문에 3차원 배열로 선언하여 체크해주어야 한다.
+        즉, 서로 다른 경로로 이동했을 때 방문처리르 따로 해주기 위해
+        3차원 배열을 사용(visited[x][y][k번 이동한 횟수])
+     */
     static boolean[][][] visited;
 
     public static void main(String[] args) {
