@@ -53,7 +53,7 @@ public class BOJ2042 {
                 arr[b] = c;
                 update(1, N, 1, b, dif);
             }else if(a == 2){
-                sb.append(sum(1, N, 1, b, (int)c) + "\n");
+                sb.append(sumt(1, N, 1, b, (int)c) + "\n");
             }
         }
 
