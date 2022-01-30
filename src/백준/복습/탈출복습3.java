@@ -88,7 +88,7 @@ public class 탈출복습3 {
                 int nx = node.x + dx[i];
                 int ny = node.y + dy[i];
 
-                if(nx < 0 || ny < 0 || nx >= r-1 || ny >= c-1) continue;
+                if(nx < 0 || ny < 0 || nx >= r || ny >= c) continue;
 
                 if(map[nx][ny] == '.'){
                     map[nx][ny] = '*';
