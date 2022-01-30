@@ -19,10 +19,9 @@ public class 마알워언숭이 {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-        K = Integer.parseInt(br.readLine());
-        st = new StringTokenizer(br.readLine());
+        K = Integer.parseInt(st.nextToken());
         W = Integer.parseInt(st.nextToken());
         H = Integer.parseInt(st.nextToken());
 
