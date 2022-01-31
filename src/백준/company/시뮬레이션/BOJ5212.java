@@ -49,6 +49,7 @@ public class BOJ5212 {
 
         map = new char[r][c];
         nummap = new int[r][c];
+
         for(int i=0; i<r; i++){
             String str = br.readLine();
             for(int j=0; j<c; j++){
@@ -60,6 +61,7 @@ public class BOJ5212 {
         print();
     }
 
+    // 육지인 곳의 사방 탐색해서 주변 육지 몇개인지 확인하기
     static void warming(){
         for(int i=0; i<r; i++){
             for(int j=0; j<c; j++){
@@ -70,19 +72,24 @@ public class BOJ5212 {
                         int nx = i + dx[k];
                         int ny = j + dy[k];
 
+                        // 범위 벗어나면 skip
                         if(nx < 0 || ny < 0 || nx >= r || ny >= c) continue;
 
+                        // 바다라면 skip
                         if(map[nx][ny] == '.') continue;
 
+                        // 주변 좌표가 육지라면 land++
                         if(map[nx][ny] == 'X'){
                             land++;
                         }
                     }
                 }
+                // 주변 육지 개수를 저장하는 배열에 육지개수 저장해주기
                 nummap[i][j] = land;
             }
         }
 
+        // 주변 육지 개수 2개 미만인 곳 바다로 변경하기
         for(int i=0; i<r; i++){
             for(int j=0; j<c; j++){
                 if(nummap[i][j] < 2){
@@ -94,6 +101,10 @@ public class BOJ5212 {
 
     // 모든 육지를 포함하는 최소한의 지도를 출력하는 함수
     static void print(){
+        // 가장 왼쪽, 가장 오른쪽으로 나눠 생각하자 -> 육지를 포함하는 최소한의 크기의 직사각형을 출력해야 하므로
+        // 육지를 포함하는 가장 큰 왼쪽 좌표와 마찬가지로 육지를 포함하는 가장 작은 오른쪽 좌표로 원하는 조건의 직사각형을 만들 수 있다
+        // 가장 왼편에서 MAX_VALUE, 가장 오른편에서 MIN_VALUE로 설정해놓고
+        // -> 좌표 비교하며 max,min 값 갱신해주기
         int lx = Integer.MAX_VALUE;
         int ly = Integer.MAX_VALUE;
         int rx = Integer.MIN_VALUE;
