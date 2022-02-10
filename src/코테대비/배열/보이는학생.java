@@ -4,10 +4,12 @@ import java.util.Scanner;
 
 public class 보이는학생 {
     public static int solution(int n, int[] arr){
-        int answer = 0;
+        int answer = 1;
+        int max = arr[0];
 
-        for (int i = 0; i < n-1; i++) {
-            if (arr[i] < arr[i + 1]) {
+        for (int i = 1; i < n; i++) {
+            if(max < arr[i]){
+                max = arr[i];
                 answer += 1;
             }
         }
