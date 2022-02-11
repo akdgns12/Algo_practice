@@ -1,6 +1,5 @@
-package 코테대비.배열;
+package 백준.복습;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class 등수구하기 {
@@ -10,7 +9,7 @@ public class 등수구하기 {
         for (int i = 0; i < n; i++) {
             int cnt = 1;
             for (int j = 0; j < n; j++) {
-                if (arr[i] < arr[j]) cnt++;
+                if(arr[i] < arr[j]) cnt++;
             }
             answer[i] = cnt;
         }
@@ -26,9 +25,7 @@ public class 등수구하기 {
             arr[i] = sc.nextInt();
         }
 
-        for (int x : solution(n, arr)) {
-            System.out.print(x + " ");
-        }
+        for (int x : solution(n, arr)) System.out.print(x + " ");
     }
 
 
