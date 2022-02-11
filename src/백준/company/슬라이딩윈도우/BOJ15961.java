@@ -1,4 +1,4 @@
-package 백준.company.정렬;
+package 백준.company.슬라이딩윈도우;
 
 import java.io.BufferedReader;
 import java.io.IOException;
