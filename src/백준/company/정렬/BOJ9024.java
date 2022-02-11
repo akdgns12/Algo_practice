@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class BOJ9024 {
-    // 두 수의 합 / 골드 5 / 이분탐색, 투포인터
+    // 두 수의 합 / 골드 5 / 투포인터
     static int n,k,min;
     static int[] num;
     public static void main(String[] args) throws IOException {
