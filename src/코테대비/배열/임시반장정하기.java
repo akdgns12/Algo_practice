@@ -21,8 +21,6 @@ public class 임시반장정하기 {
                 answer = i;
             }
         }
-
-
         return answer;
     }
 
@@ -31,7 +29,7 @@ public class 임시반장정하기 {
         int n = sc.nextInt();
         int[][] arr = new int[n+1][6];
         for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= n; j++) {
+            for (int j = 1; j <= 5; j++) {
                 arr[i][j] = sc.nextInt();
             }
         }
