@@ -39,7 +39,7 @@ public class 주차요금계산기_3번 {
                 answer.add(fees[1]); // 기본 요금 부과
             }else{
                 // 초과시간 res 구하고 올림처리
-                int res = (int)Math.ceil(((double)(result.get(key) - fees[0]) / fees[2]);
+                int res = (int)Math.ceil((double)(result.get(key) - fees[0]) / fees[2]);
                 answer.add(fees[1] + res * fees[3]);
             }
         }
