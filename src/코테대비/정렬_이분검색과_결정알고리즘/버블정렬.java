@@ -18,9 +18,9 @@ public class 버블정렬 {
                      서로 원소의 위치를 교환
                  */
                 if(arr[j] > arr[j+1]){
-                   int tmp = arr[j];
-                   arr[j] = arr[j+1];
-                   arr[j+1] = tmp;
+                    int tmp = arr[j];
+                    arr[j] = arr[j+1];
+                    arr[j+1] = tmp;
                 }
             }
         }
