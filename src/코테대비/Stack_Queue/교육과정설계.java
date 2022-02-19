@@ -26,6 +26,4 @@ public class 교육과정설계 {
 
         System.out.println(solution(a,b));
     }
-
-
 }
