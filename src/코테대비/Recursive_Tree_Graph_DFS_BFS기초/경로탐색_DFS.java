@@ -3,8 +3,6 @@ package 코테대비.Recursive_Tree_Graph_DFS_BFS기초;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.Buffer;
-import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class 경로탐색_DFS { //방향그래프
