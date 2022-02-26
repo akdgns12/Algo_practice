@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 public class 토마토_BFS {
     static class Node{
-        int x, y;
-        public Node(int x, int y){
+        public int x, y;
+        Node(int x, int y){
             this.x = x;
             this.y = y;
         }
@@ -19,16 +19,18 @@ public class 토마토_BFS {
     static Queue<Node> q = new LinkedList<>();
 
     public static void bfs(){
-        Node cur = q.poll();
-        for (int i = 0; i < 4; i++) {
-            int nx = cur.x + dx[i];
-            int ny = cur.y + dy[i];
+        while(!q.isEmpty()){
+            Node cur = q.poll();
+            for (int i = 0; i < 4; i++) {
+                int nx = cur.x + dx[i];
+                int ny = cur.y + dy[i];
 
-            if(nx >= 1 && nx <= 7 && ny >= 1 && ny <= 7
-            && map[nx][ny] == 0){
-                map[nx][ny] = 1;
-                q.offer(new Node(nx, ny));
-                day[nx][ny] = day[cur.x][cur.y] + 1;
+                if(nx >= 0 && nx < n && ny >= 0 && ny < m
+                        && map[nx][ny] == 0){
+                    map[nx][ny] = 1;
+                    q.offer(new Node(nx, ny));
+                    day[nx][ny] = day[cur.x][cur.y] + 1;
+                }
             }
         }
     }
@@ -39,6 +41,7 @@ public class 토마토_BFS {
         m = sc.nextInt();
         n = sc.nextInt();
         map = new int[n][m];
+        day = new int[n][m];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 map[i][j] = sc.nextInt();
@@ -48,7 +51,7 @@ public class 토마토_BFS {
         }
         T.bfs();
         boolean flag = true;
-        int answer = Integer.MAX_VALUE;
+        int answer = Integer.MIN_VALUE;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 if(map[i][j] == 0) flag = false; // 모두 익지 않을 때 flag = false;
@@ -56,10 +59,11 @@ public class 토마토_BFS {
         }
         if(flag){
             for (int i = 0; i < n; i++) {
-                for (int j = 0; j < m; j++) {
+                for (int j = 0; j < m; j  ++) {
                     answer = Math.max(answer, day[i][j]);
                 }
             }
+            System.out.println(answer);
         }
         else
             System.out.println(-1);
