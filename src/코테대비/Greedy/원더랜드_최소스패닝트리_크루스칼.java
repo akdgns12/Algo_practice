@@ -5,12 +5,12 @@ import java.util.Collections;
 import java.util.Scanner;
 /*
     크루스칼 알고리즘
-    - 그래프에서 트리를 뽑아내는 과정
+    - 그래프에서 최소 스패닝 트리를 뽑아내는 과정
     - 그래서 싸이클이 존재해선 안된다. -> 싸이클이 존재한다면 트리가 아니라 그래프가 됨
     - 그래서 싸이클이 존재하는 여부를 합집합찾기(유니온파인드) 알고리즘으로 검사할 수 있다
     - 두 집합 번호가 같다면 이미 트리에 존재하는 정점들이므로 싸이클이 생기지 않게 선택하지 않아야 한다
  */
-public class 원더랜드_최소스패닝트리 { //크루스칼, 유니온파인드 활용
+public class 원더랜드_최소스패닝트리_크루스칼 { //크루스칼, 유니온파인드 활용
     static class Edge implements Comparable<Edge>{
         int x, y;
         int cost;
