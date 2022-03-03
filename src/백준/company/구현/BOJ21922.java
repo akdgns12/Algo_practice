@@ -61,35 +61,36 @@ public class BOJ21922 {
     static void bfs(){
         while(!q.isEmpty()){
             Node cur = q.poll();
-            int nx = cur.x + dx[cur.dir];
-            int ny = cur.y + dy[cur.dir];
+            int dir = cur.dir;
+            int nx = cur.x + dx[dir];
+            int ny = cur.y + dy[dir];
 
             if(nx < 0 || ny < 0 || nx >= n || ny >= m) continue;
-            if(visited[nx][ny][cur.dir]) continue;
-            visited[nx][ny][cur.dir] = true;
+            if(visited[nx][ny][dir]) continue;
+            visited[nx][ny][dir] = true;
             answer[nx][ny] = 1;
-            if(map[nx][ny] == 1 && cur.dir % 2 == 1) continue;
-            else if(map[nx][ny] == 2 && cur.dir % 2 == 0) continue;
+            if(map[nx][ny] == 1 && dir % 2 == 1) continue; // case 1 : | 물건과 수직방향이라면 continue -> 어차피 왔던 길로 되돌아가니까
+            else if(map[nx][ny] == 2 && dir % 2 == 0) continue; // case 2 :  ㅡ 물건과 수직방향이라면 contknue -> 어차피 왔던 길로 되돌아가니까
             else if(map[nx][ny] == 3){
-                if(cur.dir >= 2){
-                    cur.dir = 2 + (cur.dir+1) % 2;
+                if(dir >= 2){
+                    dir = 2 + (dir+1) % 2;
                 }else{
-                    cur.dir = (cur.dir+1) % 2;
+                    dir = (cur.dir+1) % 2;
                 }
             }
             else if(map[nx][ny] == 4){
-                if(cur.dir == 0){
-                    cur.dir = 3;
-                }else if(cur.dir == 1){
-                    cur.dir = 2;
-                }else if(cur.dir == 2){
-                    cur.dir = 1;
+                if(dir == 0){
+                    dir = 3;
+                }else if(dir == 1){
+                    dir = 2;
+                }else if(dir == 2){
+                    dir = 1;
                 }else{
-                    cur.dir = 0;
+                    dir = 0;
                 }
             }
             else if(map[nx][ny] == 9) continue;
-            q.offer(new Node(nx, ny, cur.dir));
+            q.offer(new Node(nx, ny, dir));
         }
     }
 
