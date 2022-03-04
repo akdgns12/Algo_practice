@@ -27,6 +27,4 @@ public class 문자열압축 {
 
         System.out.println(solution(str));
     }
-
-
 }
