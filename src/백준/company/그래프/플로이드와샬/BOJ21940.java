@@ -53,7 +53,7 @@ public class BOJ21940 {
             friendCity.add(Integer.parseInt(st.nextToken()));
         }
 
-        //1~n까지 플로이드 와샬
+        //1~n까지 플로이드 와
         //k번 정점을 거쳐가는 좌표
         //모든 정점 쌍 사이의 최단거리 구해서 갱신
         for (int k = 1; k <= n; k++) {
