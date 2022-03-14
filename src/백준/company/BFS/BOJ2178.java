@@ -15,7 +15,7 @@ public class BOJ2178 {
     static int[] dx = {-1,1,0,0};
     static int[] dy = {0,0,-1,1};
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
@@ -32,7 +32,7 @@ public class BOJ2178 {
         }
 
         visited[0][0] = true;
-        System.out.println(bfs(0, 0));
+        System.out.println(bfs(0,0));
     }
 
     static int bfs(int x, int y){
@@ -50,19 +50,17 @@ public class BOJ2178 {
                 int nx = node.x + dx[i];
                 int ny = node.y + dy[i];
 
-                if(nx < 0 || nx >= n || ny < 0 || ny >=m ) continue;
+                if(nx < 0 || nx >= n || ny < 0 || ny >= m) continue;
                 if(visited[nx][ny] || map[nx][ny] == 0) continue;
                 visited[nx][ny] = true;
-                q.offer(new Node(nx,ny,node.dist+1));
+                q.offer(new Node(nx, ny, node.dist + 1));
             }
         }
         return 0;
     }
 
-
-
     static class Node{
-        int x,y;
+        int x, y;
         int dist;
 
         public Node(int x, int y, int dist){
