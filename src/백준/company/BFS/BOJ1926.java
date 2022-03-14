@@ -7,6 +7,14 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
+/**
+ * static int max = Integer.MIN_VALUE
+ * 이것때문에 계속 틀렸다... max = 0 으로 수정해주고 통과
+ * 이유가 뭐지..?
+ * 아! 문제 좀 끝까지 읽자 영훈아..
+ * 단, 그림이 하나도 없는 경우에는 가장 넓은 그림의 넓이는 0이다. -> 문제에 써진 조건
+ * 그림이 하나도 없는 경우 Integer.MIN_VALUE가 max값이 된다... 이럼 안되잖아!
+ */
 public class BOJ1926 {
     // 그림 / 실버 1 / BFS
     static int n, m;
