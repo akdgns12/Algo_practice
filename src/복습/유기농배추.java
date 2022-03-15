@@ -1,17 +1,15 @@
-package 백준.company.BFS;
+package 복습;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class BOJ1012 {
-    // 유기농 배추 / 실버 2 / BFS
+public class 유기농배추 {
     static int T;
-    static int n, m, k;
+    static int n,m,k;
     static int[][] map;
     static boolean[][] visited;
     static int[] dx = {-1,1,0,0};
@@ -19,20 +17,19 @@ public class BOJ1012 {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
 
         T = Integer.parseInt(br.readLine());
 
-        for (int tc = 0; tc < T; tc++) {
-            st = new StringTokenizer(br.readLine());
-            m = Integer.parseInt(st.nextToken()); // 가로
-            n = Integer.parseInt(st.nextToken()); // 세로
-            k = Integer.parseInt(st.nextToken()); // 배추 개수
+        while(T-->0){
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            m = Integer.parseInt(st.nextToken());
+            n = Integer.parseInt(st.nextToken());
+            k = Integer.parseInt(st.nextToken());
 
             map = new int[n][m];
             visited = new boolean[n][m];
 
-            for (int i = 0; i < k; i++) { //배추가 심어져 있는 위치 좌표
+            for (int i = 0; i < k; i++) {
                 st = new StringTokenizer(br.readLine());
                 int x = Integer.parseInt(st.nextToken());
                 int y = Integer.parseInt(st.nextToken());
@@ -41,9 +38,9 @@ public class BOJ1012 {
             }
 
             int answer = 0;
-            for(int i=0; i<n; i++){
-                for(int j=0; j<m; j++){
-                    if(map[i][j] == 1 && !visited[i][j]){
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                    if(map[i][j] == 1 || !visited[i][j]){
                         bfs(i,j);
                         answer++;
                     }
@@ -62,7 +59,7 @@ public class BOJ1012 {
         while(!q.isEmpty()){
             Node node = q.poll();
 
-            for(int i=0; i<4; i++){
+            for (int i = 0; i < 4; i++) {
                 int nx = node.x + dx[i];
                 int ny = node.y + dy[i];
 
@@ -72,6 +69,7 @@ public class BOJ1012 {
                 q.offer(new Node(nx, ny));
             }
         }
+
     }
 
     static class Node{
@@ -81,6 +79,4 @@ public class BOJ1012 {
             this.y = y;
         }
     }
-
-
 }
