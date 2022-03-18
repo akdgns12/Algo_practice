@@ -8,8 +8,8 @@ public class BOJ9663_2 {
     // N-Queen 다른 풀이
     static int n;
     static boolean[] isused1 = new boolean[40]; // column을 차지하고 있는지
-    static boolean[] isused2 = new boolean[40]; // / 방향 대각선을 차지하고 있는지
-    static boolean[] isused3 = new boolean[40]; // \ 방향 대각선을 차지하고 있는지
+    static boolean[] isused2 = new boolean[40]; // / 방향 대각선을 차지하고 있는지, (x+y)가 같으면 같은 대각선
+    static boolean[] isused3 = new boolean[40]; // \ 방향 대각선을 차지하고 있는지, (x-y)가 같으면 같은 대각선
     static int cnt = 0;
 
     public static void main(String[] args) throws IOException {
