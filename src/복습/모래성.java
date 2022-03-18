@@ -1,4 +1,4 @@
-package 백준.company.BFS;
+package 복습;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,8 +7,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class BOJ10711 {
-    // 모래성 / 골드 3 / BFS
+public class 모래성 {
     static int h, w;
     static char[][] map;
     static boolean[][] visited;
@@ -20,11 +19,13 @@ public class BOJ10711 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
+
         h = Integer.parseInt(st.nextToken());
         w = Integer.parseInt(st.nextToken());
 
         map = new char[h][w];
         visited = new boolean[h][w];
+
         for (int i = 0; i < h; i++) {
             String str = br.readLine();
             for (int j = 0; j < w; j++) {
@@ -32,17 +33,15 @@ public class BOJ10711 {
             }
         }
 
-        // 주변의 모래인 부분 세서 같거나 크다면 큐에 넣기
+        // 모래가 모래성 높이와 같거나 더 큰 경우 큐에 넣기
         int num = 0;
         int cnt = 0;
         for (int i = 0; i < h; i++) {
             for (int j = 0; j < w; j++) {
-                if(map[i][j] == '.'){
-                    continue;
-                }
+                if(map[i][j] == '.') continue;
 
                 num = map[i][j] - '0';
-                if(num == 9) continue; // 9면 절대 무너지지 않음
+                if(num == 9) continue;
 
                 cnt = checkCnt(i,j);
 
@@ -56,40 +55,34 @@ public class BOJ10711 {
         System.out.println(bfs());
     }
 
-    /*
-        초마다 무너져야 하는 모래성을 확인해 한번에 무너지도록 해야 한다.
-
-     */
     static int bfs(){
         int time = 0;
-
         while(!q.isEmpty()){
             int size = q.size();
 
-            for (int i=0; i<size; i++){
+
+            for (int i = 0; i < size; i++) {
                 Node node = q.poll();
 
-                map[node.x][node.y] = '.';
+                map[node.x][node.y] = '.'; // 파도쳐서 모래로 변한 처리해준다
 
                 for (int d = 0; d < 8; d++) {
                     int nx = node.x + dx[d];
                     int ny = node.y + dy[d];
 
                     if(nx < 0 || ny < 0 || nx >= h || ny >= w) continue;
-
                     if(map[nx][ny] == '.') continue;
 
                     int num = map[nx][ny] - '0';
                     if(!visited[nx][ny] && checkCnt(nx, ny) >= num){
-                        q.offer(new Node(nx,ny));
+                        q.offer(new Node(nx, ny));
                         visited[nx][ny] = true;
                     }
-
                 }
             }
-
             time++;
         }
+
         return time;
     }
 
@@ -99,7 +92,7 @@ public class BOJ10711 {
         for (int i = 0; i < 8; i++) {
             int nx = x + dx[i];
             int ny = y + dy[i];
-            if(map[nx][ny] == '.') {
+            if(map[nx][ny] == '.'){
                 cnt++;
             }
         }
@@ -107,7 +100,7 @@ public class BOJ10711 {
     }
 
     static class Node{
-        int x,y;
+        int x, y;
 
         public Node(int x, int y){
             this.x = x;
