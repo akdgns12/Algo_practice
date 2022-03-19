@@ -35,7 +35,31 @@ public class BOJ3967 {
 
     static void dfs(int depth, int goal){
         if(depth == goal){
+            for (int i=0; i<6; i++){
+                int sum = 0;
+                for (int j = 0; j < 4; j++) {
+                    int r = dr[i][j];
+                    int c = dc[i][j];
+                    sum += map[r][c] - 'A' + 1;
+                }
+                if(sum != 26) return;
+            }
+            for (int i=0; i<5; i++){
+                for(int j=0; j<9; j++){
+                    System.out.print(map[i][j]);
+                }
+                System.out.println();
+            }
+            System.exit(0);
+        }
 
+        for (int i=1; i<=12; i++){
+            if(!visited[i]) {
+                visited[i] = true;
+                map[arr.get(depth).first][arr.get(depth).second] = (char)('A' + i - 1);
+                dfs(depth+1, goal);
+                visited[i] = false;
+            }
         }
     }
 
