@@ -27,17 +27,17 @@ public class BOJ1920 {
         }
     }
 
-    static int binarySearch(int[] arr, int n, int num){
+    static int binarySearch(int[] arr, int n, int target){
         int lt = 0;
         int rt = n-1;
 
         while(lt <= rt){
             int mid = (lt + rt) / 2;
 
-            if(arr[mid] == num){
+            if(arr[mid] == target){
                 return 1;
             }
-            if(arr[mid] < num){
+            if(arr[mid] < target){
                 lt = mid + 1;
             }else{
                 rt = mid - 1;
