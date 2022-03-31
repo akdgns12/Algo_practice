@@ -3,85 +3,63 @@ package 백준.company.시뮬레이션;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class BOJ15685 {
-    // 사다리 조작 / 골드 4 / 시뮬레이션, 구현
-    /*
-        사다리 이어진 곳 : 1
-
-     */
-    static int n, m, h;
-    static int[][] map;
-    static int ans = Integer.MAX_VALUE;
-    static boolean isFinish = false;
+    // 드래곤 커브 / 골드 4 / 시뮬레이션, 구현
+    static int n,m;
+    static boolean[][] map = new boolean[101][101];
+    static int[] dx = {1,0,-1,0}; // x증가 , y감소, x감소, y증가
+    static int[] dy = {0,-1,0,1};
+    static int cnt = 0;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        n = Integer.parseInt(st.nextToken()); // 세로선의 개수
-        m = Integer.parseInt(st.nextToken()); // 가로선의 개수
-        h = Integer.parseInt(st.nextToken()); // 세로선마다 가로선을 놓을 수 있는 위치의 개수
+        n = Integer.parseInt(br.readLine());
 
-        map = new int[h+1][n+1];
-        for (int i = 0; i < m; i++) {
-            st = new StringTokenizer(br.readLine());
-            // x높이에서 y번과 y+1번을 잇는 선이 있다
+        for (int i = 0; i < n; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
             int x = Integer.parseInt(st.nextToken());
-            int y = Integer.parseInt(st.nextToken());
+            int y = Integer.parseInt(st.nextToken()); // x,y 시작점
+            int d = Integer.parseInt(st.nextToken()); // 시작 방향
+            int g = Integer.parseInt(st.nextToken()); // 시작 세대
 
-            map[x][y] = 1; // 1 : 우측으로 이동
-            map[y][y+1] = 2; //  2 : 좌측으로 이동
+            dragounCurve(x,y,d,g);
         }
 
-        // 추가할 가로선의 갯수를 미리 정해놔야 탐색 종료 조건으로 걸 수 있다.
-        // 아래 반복문에서 i는 추가할 가로선의 수
-        for (int i = 0; i <= 3; i++) {
-            ans = i;
-            dfs(1, 1, 0);
-            if(isFinish) break;
-        }
-        System.out.println(isFinish ? ans : -1);
-    }
-
-    static void dfs(int x, int y, int count){
-        if(isFinish) return;
-        if(ans == count){
-            if(check()) isFinish = true;
-            return;
-        }
-
-        for (int i=x; i<=h; i++){
-            for(int j=y; j<n; j++){
-                if (map[i][j] == 0 && map[i][j + 1] == 0) {
-                    map[i][j] = 1;
-                    map[i][j+1] = 2;
-
-                    dfs(1, 1, count+1);
-
-                    // 추가했던 가로선을 다시 제거한다
-                    map[i][j] = 0;
-                    map[i][j+1] = 0;
+        for (int i = 0; i < 100; i++) {
+            for (int j = 0; j < 100; j++) {
+                if(map[i][j] && map[i][j+1] && map[i+1][j] && map[i+1][j+1]){
+                    cnt++;
                 }
             }
         }
+
+        System.out.println(cnt);
     }
 
-    // i번에서 출발해 i번으로 도착하는지 검사
-    static boolean check(){
-        // 세로선 검사
-        for (int i = 1; i <= n; i++) {
-            int ny = i;
-            int nx = 1;
-            // 가로선 끝까지
-            while(nx <= h){
-                if(map[nx][ny] == 1) ny++; // 우측으로 이동
-                else if(map[nx][ny] == 2) ny--; // 좌측으로 이동
-                nx++; // 아래로 1칸 이동
-            }
+    static void dragounCurve(int x, int y, int dir, int generation) {
+        ArrayList<Integer> direction = new ArrayList<>();
+        direction.add(dir);
 
-            if(ny != i) return false; // i번으로 출발해서 i번으로 도착하지 않는게 하나라도 있다면 false
+        /*
+            연결리스트에 저장된 방향을 꺼내 다음 방향을 계산하여 연결리스트에 저장한다.
+            이러한 과정을 입력받은 세대만큼 반복한다.
+         */
+        for (int i = 1; i <= generation; i++) {
+            for (int j = direction.size() - 1; j >= 0; j--) {
+                direction.add((direction.get(j) + 1) % 4 );
+            }
         }
-        return true;
+
+        map[y][x] = true;
+
+        for (Integer d : direction) {
+            x += dx[d];
+            y += dy[d];
+
+            map[y][x] = true;
+        }
     }
 }
