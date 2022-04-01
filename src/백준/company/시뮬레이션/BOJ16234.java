@@ -24,6 +24,8 @@ public class BOJ16234 {
         L = Integer.parseInt(st.nextToken());
         R = Integer.parseInt(st.nextToken());
 
+        map = new int[N][N];
+
         for(int i=0; i<N; i++){
             st = new StringTokenizer(br.readLine());
             for(int j=0; j<N; j++){
@@ -33,6 +35,8 @@ public class BOJ16234 {
 
         while(true){
             boolean isMove = false; // 연합이 일어났는지 체크하는 변수
+
+            visited = new boolean[N][N];
 
             for(int i=0; i<N; i++){
                 for(int j=0; j<N; j++){
@@ -78,7 +82,7 @@ public class BOJ16234 {
                         visited[nx][ny]) continue;
 
                 int dif = Math.abs(map[node.x][node.y] - map[nx][ny]); // 이웃한 나라와의 인구수 차이
-                if(dif < L || dif > R) continue; // 연합할 수 없는 조건도 무시
+                   if(dif < L || dif > R) continue; // 연합할 수 없는 조건도 무시
 
                 // 연합할 수 있는 나라라면
                 sum += map[nx][ny]; // 인구수 누적
