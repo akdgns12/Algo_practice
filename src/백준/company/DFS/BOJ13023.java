@@ -3,6 +3,7 @@ package 백준.company.DFS;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.StringTokenizer;
@@ -17,58 +18,56 @@ public class BOJ13023 {
         더이상 갈 곳이 없다면 이대로 방문 정보를 냅두면 안되고 모두 방문이 안 된 false 상태로 만들어야 한다.
      */
     static int n, m;
-    static boolean isLine = false;
+    static ArrayList<Integer>[] list;
+    static boolean[] visited;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        n = Integer.parseInt(st.nextToken()); // 사람의 수
-        m = Integer.parseInt(st.nextToken()); // 친구 관계의 수
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
 
-        ArrayList<ArrayList<Integer>> arrList = new ArrayList<>();
-
+        list = new ArrayList[n];
         for (int i = 0; i < n; i++) {
-            arrList.add(new ArrayList<>());
+            list[i] = new ArrayList<>();
         }
 
         for (int i = 0; i < m; i++) {
             st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
-            arrList.get(a).add(b);
-            arrList.get(b).add(a);
+            // 양방향
+            list[a].add(b);
+            list[b].add(a);
         }
 
-        boolean[] visited = new boolean[n];
         for (int i = 0; i < n; i++) {
-            Arrays.fill(visited, false);
-            dfs(i, arrList, visited, 1);
-            if(isLine){
-                break;
+            visited = new boolean[n];
+            dfs(i,0);
         }
+        System.out.println(0);
     }
 
-
-        System.out.println(isLine ? 1 : 0);
-    }
-
-    static void dfs(int start, ArrayList<ArrayList<Integer>> arrList, boolean[] visited, int cnt) {
-        if (cnt == 5) {
-            isLine = true;
-            return;
+    // dfs 탐색 문제, A->B->C->D->E 인 관계가 있다면 1을 출력, 아니면 0을 출력하는 문제
+    // 위와 같은 연결 관계가 있다면 DFS 탐색 깊이가 4가 되는 것을 이용하여 문제를 푼다
+    // 반복문을 사용하여 시작 순서를 돌아가면서 DFS 탐색을 하였고, 탐색 깊이가 4가 되는 순간 1을 출력하고 프로그램을 종료했다.  1이
+    // 출력되면 그 이후에는 더이상 탐색하지 않아도 되기 때문.
+    // 모든 DFS탐색 동안 1이 출력이 되지 않는다면 위와 같은 관계를 찾지 못했다는 의미이므로 0을 출력해준다.
+    static void dfs(int start, int depth) {
+        if (depth == 4) {
+            System.out.println(1);
+            System.exit(0);
         }
 
         visited[start] = true;
-        for (int i : arrList.get(start)) {
-            if (!visited[i]) {
-                dfs(i, arrList, visited, cnt + 1);
-            }
-
-            if (isLine) {
-                return;
+        for (int i = 0; i < list[start].size(); i++) {
+            int temp = list[start].get(i);
+            if(!visited[temp]){
+                visited[temp] = true;
+                dfs(temp, depth+1);
+                visited[temp] = false;
             }
         }
-        visited[start] = false; // 일직선이 아닐 경우, 방문한 지점은 모두 false 처리
     }
 }
