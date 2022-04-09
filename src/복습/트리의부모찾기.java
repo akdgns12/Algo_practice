@@ -20,7 +20,7 @@ public class 트리의부모찾기 {
             list[i] = new ArrayList<>();
         }
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 1; i < n; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
