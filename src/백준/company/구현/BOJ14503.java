@@ -1,5 +1,6 @@
 package 백준.company.구현;
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -30,11 +31,11 @@ public class BOJ14503 {
             st = new StringTokenizer(br.readLine());
             for (int j = 0; j < m; j++) {
                 map[i][j] = Integer.parseInt(st.nextToken());
-
             }
         }
 
         dfs(r,c,d);
+        System.out.println(result);
     }
 
     /*
@@ -47,10 +48,12 @@ public class BOJ14503 {
      */
     static void dfs(int x, int y, int dir) {
         switch(map[x][y]){
-            case 0 : // 빈칸
-                map[x][y] = 2; // 청소한 칸은 2로 매핑
             case 1 : // 벽
                 return;
+            case 0 : // 빈칸
+                map[x][y] = 2; // 청소한 칸은 2로 매핑
+                result++;
+                break;
         }
 
         // 인접한 칸 탐색
