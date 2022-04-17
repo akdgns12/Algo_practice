@@ -60,24 +60,26 @@ public class BOJ1707 {
     static void bfs(int start) {
         Queue<Integer> q = new LinkedList<>();
 
-        for (int i = 1; i <= v; i++) {
-            if(color[i] == 0){
-                color[i] = 1;
+        for (int i = 1; i <= v; i++) { // 모든 정점이 연결되어 있지않다 -> 문제를 잘 보면 정점이 서로 끊어져 있는 경우도 있음 다 체크해줘야함
+            if(color[i] == 0){ // 아직 아무 그룹도 아니라면 -> 아직 방문하지 않았다면
+                color[i] = 1; // 1그룹으로 매핑해주고 큐에 넣어준다
                 q.offer(i);
             }
 
             while(!q.isEmpty()){
                 int now = q.poll();
-
+                // 인접노드 탐색
                 for (int next : list[now]){
-                    if(color[next] == color[now]){
+                    if(color[next] == color[now]){ // 인접노드가 같은 그룹(색깔)이라면 NO
                         System.out.println("NO");
                         return;
                     }
 
+                    // 같은 그룹이 아니고 아직 방문하지 않았다면?
                     if(color[next] == 0){
-                        q.offer(next);
+                        q.offer(next); // 다음 노드를 큐에 넣어주고
 
+                        // 이전 노드가 1이면 2로 매핑, 이전 노드가 2면 다음노드를 1로 매핑 이렇게 각각 다른 색깔로 매핑해준다
                         if(color[now] == 1){
                             color[next] = 2;
                         }else{
