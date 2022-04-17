@@ -9,50 +9,58 @@ import java.util.StringTokenizer;
 public class BOJ2504 {
     // 괄호의 값 // 실버2 / 구현
     // 생각
-    static int answer;
-
+    /*
+        1. 여는 괄호는 스택에 저장
+        2. 닫는 괄호만날때
+            2-1
+     */
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String str = br.readLine();
+        StringBuilder sb = new StringBuilder();
+        int len = str.length();
         Stack<Character> st = new Stack<>();
-
-        int mul = 1;
         int result = 0;
-        for (int i = 0; i < str.length(); i++) {
-            char c = str.charAt(i);
-            switch(c){
+        int val = 1;
+
+        for (int i = 0; i < len; i++) {
+            switch(str.charAt(i)){
                 case '(' :
-                    st.push(c);
-                    mul *= 2;
+                    st.push(str.charAt(i));
+                    val *= 2;
                     break;
-                case '[':
-                    st.push(c);
-                    mul *= 3;
+                case '[' :
+                    st.push(str.charAt(i));
+                    val *= 3;
                     break;
                 case ')':
                     if(st.isEmpty() || st.peek() != '('){
                         result = 0;
                         break;
                     }
-
-                    if(str.charAt(i-1) == '(') result += mul;
+                    else if(str.charAt(i-1) == '('){
+                        result += val;
+                    }
                     st.pop();
-                    mul /= 2;
+                    val /= 2;
                     break;
-                case ']':
+                case ']' :
                     if(st.isEmpty() || st.peek() != '['){
                         result = 0;
                         break;
                     }
-
-                    if(str.charAt(i-1) == '[') result += mul;
+                    else if(str.charAt(i-1) == '['){
+                        result += val;
+                    }
                     st.pop();
-                    mul /= 3;
+                    val /= 3;
                     break;
             }
         }
 
-        System.out.println(!st.isEmpty() ? 0 : result);
+        if(!st.isEmpty()) sb.append(0).append("\n");
+        else sb.append(result).append("\n");
+        System.out.println(sb);
     }
 }
 
