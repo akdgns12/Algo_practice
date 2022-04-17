@@ -1,4 +1,4 @@
-package 백준.company.구현;
+package 백준.company.DFS;
 
 import java.io.BufferedReader;
 import java.io.IOException;
