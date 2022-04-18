@@ -17,12 +17,15 @@ public class BOJ9205 {
         편의점, 상근이네 집, 목적지 좌표가 주어짐.
 
         생각
-        시작점에서부터 인접한 정점들을 탐색?
+        50m에 맥주 한캔 먹음 그런 맥주 캔을 20캔 가지고 있다
+        20 * 50 = 1000,즉 1000미터 이하의 거리에 편의점이 있어야 함 -> 목적지에 도착할 때까지
+
+        문제 자체는 쉬운데 문제 자체의 의도를 파악하느라 좀 힘들었음
      */
     static int t;
     static int n, x, y;
     static int endX, endY;
-    static ArrayList<Node> store;
+    static ArrayList<Node> store; // 편의점 좌표 저장할 구조체
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -56,7 +59,7 @@ public class BOJ9205 {
 
     static boolean bfs(int x, int y) {
         Queue<Node> q = new LinkedList<>();
-        boolean[] visited = new boolean[n];
+        boolean[] visited = new boolean[n]; // 편의점 방문체크
         q.offer(new Node(x, y));
 
         while (!q.isEmpty()) {
@@ -64,7 +67,7 @@ public class BOJ9205 {
             int nowX = node.x;
             int nowY = node.y;
 
-            if (Math.abs(nowX - endX) + Math.abs(nowY - endY) <= 1000) {
+            if (Math.abs(nowX - endX) + Math.abs(nowY - endY) <= 1000) { // 현재좌표에서 도착점까지 1000미터 이내면 갈 수 있으니 true 리턴
                 return true;
             }
 
