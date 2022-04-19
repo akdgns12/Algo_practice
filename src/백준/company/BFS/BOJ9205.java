@@ -53,7 +53,7 @@ public class BOJ9205 {
             endX = Integer.parseInt(st.nextToken());
             endY = Integer.parseInt(st.nextToken());
 
-            System.out.println(bfs(startX, startY) ? "happy\n" : "sad\n");
+            System.out.println(bfs(startX, startY) ? "happy" : "sad");
         }
     }
 
