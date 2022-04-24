@@ -26,6 +26,9 @@ public class 미로만들기 {
         StringTokenizer st;
 
         n = Integer.parseInt(br.readLine());
+        map = new int[n][n];
+        dist = new int[n][n];
+
         for (int i = 0; i < n; i++) {
             String str = br.readLine();
             for (int j = 0; j < n; j++) {
@@ -54,18 +57,19 @@ public class 미로만들기 {
 
                 // MAX_VALUE로 초기화 해놓았기 때문에
 
-                if(map[nx][ny] == '1'){ // 다음 위치가 흰방이면
-                    if (dist[nx][ny] > dist[now.x][now.y]) {
-                        q.offer(new Node(nx, ny));
+                if(map[nx][ny] == 1){
+                    if(dist[nx][ny] > dist[now.x][now.y]){
                         dist[nx][ny] = dist[now.x][now.y];
+                        q.offer(new Node(nx, ny));
                     }
                 }
                 else{
-                    if(dist[nx][ny] > dist[now.x][now.y]){ // 다음 위치가 검은방이면
+                    if(dist[nx][ny] > dist[now.x][now.y]){
+                        dist[nx][ny] = dist[now.x][now.y] + 1;
                         q.offer(new Node(nx, ny));
-                        dist[nx][ny] = dist[now.x][now.y] + 1; // 검은방 누적해서 더해줌
                     }
                 }
+
 
             }
         }
