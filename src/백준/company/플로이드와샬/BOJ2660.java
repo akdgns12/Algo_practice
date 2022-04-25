@@ -1,4 +1,4 @@
-package 백준.company.BFS;
+package 백준.company.플로이드와샬;
 
 import java.io.BufferedReader;
 import java.io.IOException;
