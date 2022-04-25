@@ -26,7 +26,7 @@ public class BOJ16933 {
         k = Integer.parseInt(st.nextToken());
 
         map = new int[n][m];
-        visited = new boolean[n][m][k+1];
+        visited = new boolean[n][m][k+1]; // 0:낮, 1:밤
 
         for (int i = 0; i < n; i++) {
             String str = br.readLine();
@@ -40,7 +40,7 @@ public class BOJ16933 {
 
     static void bfs() {
         Queue<Node> q = new LinkedList<>();
-        q.offer(new Node(0, 0, 1, 0, true)); // 0 : 낮, 1 : 밤
+        q.offer(new Node(0, 0, 1, 0, true)); // true : 낮, false : 밤
         visited[0][0][0] = true;
 
         while(!q.isEmpty()){
@@ -56,27 +56,25 @@ public class BOJ16933 {
                 int ny = now.y + dy[i];
                 boolean day = now.day; // 낮과 밤 판별 변수
 
+                // 범위 넘어가면 pass
                 if(nx < 0 || ny < 0 || nx >= n || ny >= m) continue;
 
-                if (map[nx][ny] == 0) { // 이동할 수 있는 경우
-                    // 방문한 곳이면 pass
-                    if(visited[nx][ny][now.breakWall]) continue;
+                // 빈공간이고 방문한적 없는 곳인 경우
+                if(map[nx][ny] == 0 && !visited[nx][ny][now.breakWall]){
+                    visited[nx][ny][now.breakWall] = true;
                     q.offer(new Node(nx, ny, now.cnt + 1, now.breakWall, !day));
                 }
-                else{ // 벽을 만난 경우
-                    // 벽을 부술 횟수가 k를 초과하거나 방문했던 곳이면 pass
-                    if(now.breakWall + 1 > k || visited[nx][ny][now.breakWall + 1]) continue;
-                    // 낮일 경우
-                    if(day){
-                        visited[nx][ny][now.breakWall + 1] = true;
+
+                // 벽이지만 부실 수 있는 경우
+                if(map[nx][ny] == 1 && now.breakWall < k) {
+                    if (day && !visited[nx][ny][now.breakWall + 1]) { // 낮이고 방문한적이 없다면
+                        // 벽을 부순걸로 처리해준다(낮에만 벽을 부실 수 있음)
+                        visited[nx][ny][now.breakWall+1]= true;
                         q.offer(new Node(nx, ny, now.cnt + 1, now.breakWall + 1, !day));
-                    }
-                    else{ // 밤일 경우
-                        // 낮이 되기를 기다렸다가 부심
-                        q.offer(new Node(now.x, now.y, now.cnt + 1, now.breakWall, !day));
+                    } else if (!day && !visited[nx][ny][now.breakWall + 1]) { // 밤이고 방문한적이 없는 곳이라면
+                        q.offer(new Node(now.x, now.y, now.cnt + 1, now.breakWall, !day)); // 이동하지 않고 같은 칸에 머물러있기.(낮에만 벽을 부실 수 있으므로 날이 바뀌기를 기다린다)
                     }
                 }
-
             }
         }
         System.out.println(-1);
