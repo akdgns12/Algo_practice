@@ -15,19 +15,19 @@ public class BOJ6987 {
         2. 매치들을 돌며 승-패/무-무/패-승의 경우를 살펴봄
         3. 재귀가 15회(총 경기 횟수)돈 경우 : 유효한 경기결과!
      */
-    static int[] home = {0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 3, 3, 4};
-    static int[] away = {1, 2, 3, 4, 5, 2, 3, 4, 5, 3, 4, 5, 4, 5, 5};
+    static int[] home = {0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 3, 3, 4}; // 차례대로 A - B - C - D - E - F 나라의 나올 수 있는 경우의 수 매핑해놓음
+    static int[] away = {1, 2, 3, 4, 5, 2, 3, 4, 5, 3, 4, 5, 4, 5, 5}; // 마찬가지로
     static int[][] score;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
 
-        score = new int[6][3];
-
         for (int i = 0; i < 4; i++) {
+            score = new int[6][3];
             st = new StringTokenizer(br.readLine());
             int total = 0;
+
             for (int j = 0; j < 6; j++) {
                 for (int k = 0; k < 3; k++) {
                     score[j][k] = Integer.parseInt(st.nextToken());
@@ -47,7 +47,7 @@ public class BOJ6987 {
 
     // 백트래킹
     static boolean dfs(int game) {
-        if(game == 15){
+        if(game == 15){ // 종료조건 - 총 경기 횟수만큼 돌면 유효한 경기결과
             return true;
         }
 
@@ -57,7 +57,7 @@ public class BOJ6987 {
             score[away[game]][2]--;
             if(dfs(game + 1)) return true;
             score[home[game]][0]++;
-            score[home[game]][2]++;
+            score[away[game]][2]++;
         }
 
         // 어웨이 팀이 이기는 경우
