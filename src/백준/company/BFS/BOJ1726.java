@@ -14,9 +14,10 @@ public class BOJ1726 {
     static int[][] map;
     static boolean[][][] visited; // 위치와 방향까지 체크해야함, 특정 위치로 올 수 있는 방법은 4가지
     static int sx, sy, sDir, ex, ey, eDir;
+    static int[] dx = {0, 0, 0, 1, -1}; // 동서남북
+    static int[] dy = {0, 1, -1, 0, 0};
     static Node start, end;
-    static int[] dx = {0,0,0,1,-1}; // 동서남북
-    static int[] dy = {0,1,-1,0,0};
+    static int answer = Integer.MAX_VALUE;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -49,46 +50,38 @@ public class BOJ1726 {
         bfs();
     }
 
-    /*
-        1. 현재 향하고 있는 방향으로 k칸 만큼 이동 (1 ~ 3)
-        2.
-     */
     static void bfs(){
         Queue<Node> q = new LinkedList<>();
         q.offer(start);
-        visited[sx][sy][sDir] = true;
+        visited[start.x][start.y][start.dir] = true;
 
         while(!q.isEmpty()){
             Node now = q.poll();
 
-            if(now.x == ex && now.y == ey && now.dir == eDir){
+            if(now.x == end.x && now.y == end.y && now.dir == end.dir){
                 System.out.println(now.cnt);
                 return;
             }
 
-            // 현재 바라보는 방향에서 1, 2, 3칸 이동
+            // 현재 바라보는 방향으로 1,2,3만큼 이동
             for (int i = 1; i <= 3; i++) {
-                int nx = now.x + dx[now.dir] * i; // 현재 바라보는 방향으로 i칸만큼 이동
+                int nx = now.x + dx[now.dir] * i;
                 int ny = now.y + dy[now.dir] * i;
 
-                if(nx < 0 || ny < 0 || nx >= m || ny >= n) continue; // 범위 벗어나면 pass
+                if(nx < 0 || ny < 0 || nx >= m || ny >= n) continue;
                 if(visited[nx][ny][now.dir]) continue;
-                if(map[nx][ny] == 0){ // 움직일 수 있는 궤도이면
-                    q.offer(new Node(nx, ny, now.dir, now.cnt + 1));
-                    visited[nx][ny][now.dir] = true;
-                }else if(map[nx][ny] == 1){
-                    break; // 벽을 만나면 더 건너뛸 수 없음
-                }
+                if(map[nx][ny] == 1) break;
+
+                q.offer(new Node(nx, ny, now.dir, now.cnt + 1));
+                visited[nx][ny][now.dir] = true;
             }
 
-            // 방향만 움직이기(방향만 움직여도 cnt증가, 문제의 조건에 따르면 명령 횟수를 세는것이기 때문)
+            // 방향만 움직이기
             for (int i = 1; i <= 4; i++) {
-                // 방문하지 않았고 기존 방향이 아니라면
-                if (!visited[now.x][now.y][i] || i != now.dir) {
-                    // 180도 회전할 경우에는 cnt가 2증가하기 때문에
-                    // 180도 회전할 경우는 동,서 와 남,북 이므로 둘을 더했을 땐 고유하게 3과 7의 값이 나오게 됨
+                if(!visited[now.x][now.y][i] && i != now.dir){
                     if(i + now.dir == 3 || i + now.dir == 7){
                         q.offer(new Node(now.x, now.y, i, now.cnt + 2));
+                        visited[now.x][now.y][i] = true;
                     }
                     else{
                         q.offer(new Node(now.x, now.y, i, now.cnt + 1));
@@ -96,9 +89,7 @@ public class BOJ1726 {
                     }
                 }
             }
-
         }
-
     }
 
     static class Node{
