@@ -26,14 +26,15 @@ public class BOJ1339 {
             }
         }
 
+        // map의 key만 담은 arraylist
         ArrayList<Integer> keyList = new ArrayList<>(map.keySet());
-        // map의 value값 기준 오름차순
+        // map의 key(알파벳)값들을 value값 기준 오름차순
         Collections.sort(keyList, (o1, o2) -> (map.get(o1) - map.get(o2)));
 
         int total = 0;
         int num = 10 - map.size();
         for (int key : keyList) {
-            total += map.get(key) * num;
+            total += map.get(key) * num; // 자릿수 * 높은값
             num++;
         }
         System.out.println(total);
