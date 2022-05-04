@@ -68,7 +68,7 @@ public class BOJ3085 {
             // 한 줄, 한 행마다 초기화 그리고 사탕은 무조건 1개 이상
             int sum = 1;
             for (int j = 0; j < n - 1; j++) {
-                // 양옆이 같다면ㄴ
+                // 양옆이 같다면
                 if (map[i][j] == map[i][j + 1]) {
                     sum++;
                 } else {
