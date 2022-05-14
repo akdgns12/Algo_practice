@@ -1,8 +1,12 @@
 package 코테대비.정렬_이분검색과_결정알고리즘;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class 좌표정렬 {
     static class Point implements Comparable<Point>{
@@ -33,6 +37,4 @@ public class 좌표정렬 {
         Collections.sort(arr);
         for (Point o : arr) System.out.println(o.x + " " +  o. y);
     }
-
-
 }
