@@ -3,6 +3,7 @@ package 백준.company.이분탐색;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class BOJ1072 {
@@ -16,15 +17,11 @@ public class BOJ1072 {
 
         절대 변하지 않는다면 -1 출력
      */
-    static int x, y;
-
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
+        Scanner sc = new Scanner(System.in);
 
-        x = Integer.parseInt(st.nextToken());
-        y = Integer.parseInt(st.nextToken());
-
+        int x = sc.nextInt();
+        int y = sc.nextInt();
         int z = getPercent(x, y);
 
         int ans = -1;
