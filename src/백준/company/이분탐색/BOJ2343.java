@@ -32,8 +32,8 @@ public class BOJ2343 {
 
         for (int i = 0; i < n; i++) {
             lecture[i] = Integer.parseInt(st.nextToken());
-            rt += lecture[i];
-            lt = Math.max(lt, lecture[i]);
+            rt += lecture[i]; // 디스크 최대크기는 모든 강의들을 합친 수
+            lt = Math.max(lt, lecture[i]); // 최소 크기는 강의들 중 최대 크기
         }
 
         while (lt <= rt) {
@@ -43,15 +43,15 @@ public class BOJ2343 {
             int cnt = 0;
 
             for (int i = 0; i < n; i++) {
-                if (sum + lecture[i] > mid) {
-                    sum = 0;
-                    cnt++;
+                if (sum + lecture[i] > mid){ // 강의들을 더한 값이 mid를 넘어가면
+                    sum = 0; // sum 초기화해주고
+                    cnt++; // 디스크 수 증가
                 }
-                sum += lecture[i];
+                sum += lecture[i]; // 넘어간 값은 다시 초기화된 sum에 더해줌
             }
 
             if(sum != 0) cnt++;
-            if(cnt <= m) rt = mid - 1;
+            if(cnt <= m) rt = mid - 1; // cnt가 m개의 블루레이 수와 작거나 같다면, 강의를 담기 위해 디스크를 나눈 횟수가 늘어나도록 rt = mid - 1 (디스크의 크기가 커서 강의를 너무 큰 간격으로 담은 상태이기 때문에)
             else lt = mid + 1;
         }
 
