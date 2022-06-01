@@ -28,7 +28,6 @@ public class BOJ2467 {
                 1. min > Math.abs(arr[i] + arr[mid]) 0에 가장 가까운 값이 갱신되면 저장
                 2. arr[mid] >= -arr[i] 기준점* -1보다 크다면 위치를 rt = mid - 1로 옮겨줌
                 3. arr[mid] < -arr[i] 기준점* -1보다 작다면 위치를 lt = mid + 1로 옮겨줌
-
      */
     static int n;
     static int[] arr;
@@ -47,15 +46,33 @@ public class BOJ2467 {
 
         Arrays.sort(arr);
 
-        int lt = 0;
-        int rt = arr.length - 1;
+        int[] answer = new int[2];
 
-        while (lt <= rt) {
-            int mid = (lt + rt) / 2;
+        int max = Integer.MAX_VALUE;
 
-            if(arr[mid] == 0){
+        for (int i = 0; i < n; i++) { // 두 용액을 비교해야하므로, i번째 용액을 기준으로 나머지 범위에 이분탐색 적용
+            int lt = i+1;
+            int rt = n-1;
 
+            while (lt <= rt) {
+                int mid = (lt + rt) / 2;
+
+                int sum = arr[i] + arr[mid];
+
+                if(Math.abs(sum) < max){
+                    answer[0] = arr[i];
+                    answer[1] = arr[mid];
+                    max = Math.abs(sum);
+                }
+
+                if (sum < 0) {
+                    lt = mid + 1;
+                } else {
+                    rt = mid - 1;
+                }
             }
         }
+
+        System.out.println(answer[0] + " " + answer[1]);
     }
 }
