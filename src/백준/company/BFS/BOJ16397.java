@@ -56,7 +56,7 @@ public class BOJ16397 {
                     q.offer(new Node(nx, node.t + 1));
                 } else {
                     int nx = node.n * 2;
-                    if(nx > 99999 || visited[nx]) continue;
+                    if(nx > 99999 || nx == 0) continue;
 
                     int idx = -1;
 
