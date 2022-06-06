@@ -61,7 +61,7 @@ public class BOJ15558 {
 
             // 한 칸 뒤로 이동하는 경우
             if(now.x - 1 > 0){
-                if (!visited[now.line][now.x - 1] && map[now.line][now.x - 1] == 1 && now.x - 1 > now.time) {
+                if (!visited[now.line][now.x - 1] && map[now.line][now.x - 1] == 1 && now.x - 1 > now.time) { // 뒤로 가려는 곳이 현재 시간보다 큰 경우만 가능(즉, 사라지지 않은 경우에만 이동 가능)
                     visited[now.line][now.x - 1] = true;
                     q.offer(new Node(now.line, now.x - 1, now.time + 1));
                 }
