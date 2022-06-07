@@ -1,92 +1,89 @@
 package 백준.company.BFS;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-import java.io.BufferedWriter;
-import java.io.OutputStreamWriter;
 import java.util.*;
 
 public class BOJ14395 {
+    // 4연산 / 골드5 / BFS
+    /*
+        s = s + s; (출력: +)
+        s = s - s; (출력: -)
+        s = s * s; (출력: *)
+        s = s / s; (출력: /) (s가 0이 아닐때만 사용 가능)
+     */
+    static long s, t;
+    static char[] op = {'*', '+', '-', '/'};
+    // 목표는 s라는 정수가 t로 되기까지 최소 횟수를 구하는 것으로
+    // 연산 중 같은 수가 중복되는 case를 제거해 시간초과 방지를 위해 set 사용(방문처리를 set으로)
+    static HashSet<Long> visited = new HashSet<>();
 
-    static final char[] op = new char[]{'*', '+', '-', '/'};
-
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int s = Integer.parseInt(st.nextToken());
-        int t = Integer.parseInt(st.nextToken());
+
+        s = Integer.parseInt(st.nextToken());
+        t = Integer.parseInt(st.nextToken());
+
         if (s == t) {
             System.out.println(0);
             return;
         }
 
-        bfs(s, t);
-
-        br.close();
+        bfs();
     }
 
-    static void bfs(int s, int t) throws Exception {
-        Queue<Long> queue = new ArrayDeque<>();
-        queue.add((long) s);
-        Map<Long, Data> visited = new HashMap<>();
-        visited.put((long) s, null);
+    static void bfs() {
+        Queue<Operation> q = new LinkedList<>();
+        q.offer(new Operation(s, ""));
+        visited.add(s);
 
-        while (!queue.isEmpty()) {
-            long current = queue.poll();
-            if (current == t) {
-                printAnswer(s, t, visited);
+        while (!q.isEmpty()) {
+            Operation o = q.poll();
+
+            if(o.n == t){
+                System.out.println(o.result);
                 return;
             }
+
+            // 사전 순 연산 돌리기
             for (int i = 0; i < 4; i++) {
-                long next = -1;
-                if (i == 0) {
-                    next = current * current;
-                } else if (i == 1) {
-                    next = 2L * current;
-                } else if (i == 2) {
-                    next = 0;
-                } else if (current != 0) {
-                    next = 1;
-                }
-                if (0 <= next && !visited.containsKey(next)) {
-                    visited.put(next, new Data(op[i], current));
-                    queue.add(next);
-                }
+                long num = calculate(i, o.n); // 연산 결과값
+
+                if(num <= 0) continue; // 음수면 건너뛰기
+                if(visited.contains(num)) continue;
+
+                visited.add(num);
+                q.offer(new Operation(num, o.result + op[i]));
             }
         }
 
-        System.out.println(-1);
+        System.out.println(-1); // 바꿀 수 없는 경우 -1 출력
     }
 
-    static void printAnswer(int s, int t, Map<Long, Data> visited) throws Exception {
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        Stack<Character> stack = new Stack<>();
-
-        long temp = t;
-        while (temp != s && visited.containsKey(temp)) {
-            Data data = visited.get(temp);
-            stack.push(data.c);
-            temp = data.from;
+    static long calculate(int op, long n) {
+        if (op == 0) {
+            n *= n;
+        } else if (op == 1) {
+            n += n;
+        } else if (op == 2) {
+            n -= n;
+        } else {
+            n /= n;
         }
 
-        while (!stack.isEmpty()) {
-            bw.append(stack.pop());
-        }
-
-        bw.flush();
-        bw.close();
+        return n;
     }
 
-    static class Data {
-        char c;
-        long from;
+    static class Operation {
+        long n;
+        String result;
 
-        public Data(char c, long from) {
-            this.c = c;
-            this.from = from;
+        public Operation(long n, String result) {
+            this.n = n;
+            this.result = result;
         }
     }
 }
