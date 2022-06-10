@@ -23,7 +23,7 @@ public class BOJ19538 {
     static Queue<Integer> q = new LinkedList<>();
     static int[] turn;
     static int[] answer; // 정답 배열
-    static ArrayList<Integer>[] list;
+    static ArrayList<Integer>[] list; // 인접그래프
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -31,12 +31,14 @@ public class BOJ19538 {
 
         n = Integer.parseInt(br.readLine()); //사람 수
 
-        turn = new int[n]; // 감염까지 남은 비감염 사람 수
-        answer = new int[n];
+        answer = new int[n+1]; // 정답 배열
         Arrays.fill(answer, -1); // -1로 초기화(처음 감염된 것인지 아닌지 구분위해)
 
+        turn = new int[n+1];
+        Arrays.fill(turn, 0);
+
         list = new ArrayList[n + 1];
-        for (int i = 1; i <= n; i++) {
+        for (int i = 0; i <= n; i++) {
             list[i] = new ArrayList<>();
         }
 
@@ -45,10 +47,11 @@ public class BOJ19538 {
             st = new StringTokenizer(br.readLine());
             while (true) {
                 int num = Integer.parseInt(st.nextToken());
-                if(num == 0)
-                    break;
-
                 list[i].add(num);
+
+                if (num == 0) {
+                    break;
+                }
             }
         }
 
@@ -57,12 +60,14 @@ public class BOJ19538 {
         for (int i = 0; i < m; i++) {
             int num = Integer.parseInt(st.nextToken());
             q.offer(num); // 최초 유포자, 시간 : 0
-            answer[num-1] = 0; // 최초유포자는 0분
+            answer[num] = 0; // 최초유포자는 0분
         }
 
+
         bfs();
-        for (int i : answer)
-            System.out.print(i + " ");
+        for (int i = 1; i <= n; i++) {
+            System.out.print(answer[i] + " ");
+        }
     }
 
     // 큐에 감염된 사람들을 넣으며 주변인들의 감염여부 판별해나간다
@@ -71,22 +76,26 @@ public class BOJ19538 {
         // 몇 명이 감염되었을 떄 자신이 감염되는지에 대한 정보를
         // 사람 i의 주변인물 수 + 1/2의 몫으로 저장해둔다.
         for (int i = 1; i <= n; i++) {
-            turn[i-1] = list[i].size() / 2;
+            turn[i] = list[i].size() / 2;
         }
 
         while(!q.isEmpty()){
             int now = q.poll(); // 현재, 가장 먼저 감염된 사람의
 
             for (int next : list[now]) { // 주변인 탐색
-                if(next == 0) continue;
+                if(next == 0) break;
 
-                turn[next-1] -= 1; // 자신(주변인물)이 감염되기까지 남은 사람 수를 1빼고
-                if(answer[next-1] == -1 && turn[next-1] <= 0){ // 만약 감염되지 않았고 주변인의 반 이상이 감염되었다면
+                // 감염까지 남은 사람 빼줌
+                turn[next] -= 1; // 자신(주변인물)이 감염되기까지 남은 사람 수를 1빼고
+                if(answer[next] == -1 && turn[next] <= 0){ // 만약 감염되지 않았고 주변인의 반 이상이 감염되었다면
                     q.offer(next); // 감염되었기에 큐에 넣어주고
-                    answer[next-1] = answer[now-1] + 1; // 자신을 감염시킨 마지막 주변인의 감염된 시간 + 1분을 더함
+                    answer[next] = answer[now] + 1; // 자신을 감염시킨 마지막 주변인의 감염된 시간 + 1분을 더함
                 }
             }
         }
     }
 }
+
+
+
 
