@@ -44,31 +44,29 @@ public class BOJ10472 {
                 }
             }
 
-            if (str.equals("000000000")) {
-                System.out.println(0);
-            } else {
-                System.out.println(bfs(str));
-            }
+            bfs(str);
         }
     }
 
-    static int bfs(String str) {
-        Queue<String> q = new LinkedList<>();
+    static void bfs(String str) {
+        Queue<Node> q = new LinkedList<>();
         HashSet<String> set = new HashSet<>();
-
-        q.offer("000000000");
+        // 초기 격자판 흰상태 넣어주고
+        q.offer(new Node("000000000", 0));
         set.add("000000000");
-        int time = 1;
 
         while (!q.isEmpty()){
-            int size = q.size();
+                Node now = q.poll();
 
-            while (size-- > 0) {
-                String now = q.poll();
+                // 변경 시킨 조합이 원하는바와 같다면 횟수 리턴
+                if(str.equals(now.str)){
+                    System.out.println(now.time);
+                    return;
+                }
 
-                for (int i = 0; i < 9; i++) {
-                    String next = now;
-                    for (int j = 0; j < direction[i].length; j++) {
+                for (int i = 0; i < 9; i++) { // 9칸 중에 한 칸 선택해서
+                    String next = now.str;
+                    for (int j = 0; j < direction[i].length; j++) { // 해당 칸과 인접한 칸 색변경 시켜주고
                         if (next.charAt(direction[i][j]) == '1') {
                             next = next.substring(0, direction[i][j]) + '0' + next.substring(direction[i][j] + 1, 9);
                         } else {
@@ -76,19 +74,25 @@ public class BOJ10472 {
                         }
                     }
 
+                    // 이미 변경시킨 case라면 pass
                     if(set.contains(next)) continue;
 
-                    if(str.equals(next)) return time;
-
-                    q.offer(next);
+                    q.offer(new Node(next, now.time + 1));
                     set.add(next);
                 }
             }
 
-            time++;
-        }
+        return;
+    }
 
-        return time;
+    static class Node{
+        String str;
+        int time;
+
+        public Node(String str, int time) {
+            this.str = str;
+            this.time = time;
+        }
     }
 }
 
