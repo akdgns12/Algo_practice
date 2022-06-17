@@ -14,7 +14,6 @@ public class BOJ14562 {
         S와 T가 같아지는 최소 연속 발차기 횟수 가하라
      */
     static int tc;
-    static boolean[] visited;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -27,53 +26,37 @@ public class BOJ14562 {
             int s = Integer.parseInt(st.nextToken()); // 태균이 점수
             int t = Integer.parseInt(st.nextToken()); // 상대 점수
 
-            visited = new boolean[100];
-            bfs(s,t);
+            bfs(s,t, 0);
         }
     }
 
-    static void bfs(int s, int t) {
+    static void bfs(int s, int t, int cnt) {
         Queue<Node> q = new LinkedList<>();
-        q.offer(new Node(s,0));
-        visited[s] = true;
+        q.offer(new Node(s, t, 0));
 
-        while (!q.isEmpty()) {
+        while (!q.isEmpty()){
             Node now = q.poll();
 
-            if (now.idx == t) {
+            if (now.s == now.t) {
                 System.out.println(now.cnt);
                 return;
             }
 
-            for (int i = 1; i <= t; i++) {
-                int next = now.idx + (now.idx * i);
-                t += 3;
+            if(now.s > now.t) continue;
 
-                if (next < 1 ||next > t) continue;
-
-                q.offer(new Node(next, now.cnt + 1));
-                visited[next] = true;
-            }
-
-            for (int i = 1; i <= t; i++) {
-                int next = now.idx + 1;
-
-                if (next > t) continue;
-
-                q.offer(new Node(next, now.cnt + 1));
-                visited[next] = true;
-            }
+            q.offer(new Node(now.s * 2, now.t + 3, now.cnt + 1));
+            q.offer(new Node(now.s + 1, now.t, now.cnt + 1));
         }
 
-        return;
     }
 
     static class Node{
-        int idx;
+        int s, t;
         int cnt;
 
-        public Node(int idx, int cnt) {
-            this.idx = idx;
+        public Node(int s, int t, int cnt) {
+            this.s = s;
+            this.t =t ;
             this.cnt = cnt;
         }
     }
