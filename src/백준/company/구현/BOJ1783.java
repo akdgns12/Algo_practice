@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class BOJ1783 {
+    // 병든 나이트 / 실버 4 / 구현
     /*
         1. 2칸 위로, 1칸 오른쪽
         2. 1칸 위로, 2칸 오른쪽
