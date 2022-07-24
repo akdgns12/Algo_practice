@@ -1,6 +1,7 @@
 package SSAFY.polymorphism;
 
 import java.util.Arrays;
+import java.util.Locale;
 
 public class BookManager {
     int MAX_SIZE = 100; // 사용자 최대 개수
@@ -47,7 +48,7 @@ public class BookManager {
         int cnt = 0;
 
         for (int i = 0; i < size; i++) { // 도서 제목을 포함하는 개수를 카운팅
-            if(books[i].getTitle().contains(title)){
+            if(books[i].getTitle().contains(title.toLowerCase())){
                 cnt++;
             }
         }
