@@ -1,6 +1,5 @@
 package 복습;
 
-import jdk.swing.interop.SwingInterOpUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
