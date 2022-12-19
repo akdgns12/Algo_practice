@@ -3,7 +3,6 @@ package 백준.company.구현;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 
 public class BOJ2138_전구와스위치 { // 넘 어렵다.. 아이디어 참고함..
     static int N;
