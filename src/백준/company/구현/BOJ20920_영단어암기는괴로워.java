@@ -45,3 +45,5 @@ public class BOJ20920_영단어암기는괴로워 {
         System.out.println(sb);
     }
 }
+
+// Token issue test commit
