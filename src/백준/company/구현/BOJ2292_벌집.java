@@ -11,7 +11,7 @@ public class BOJ2292_벌집 {
 
         // 규칙 : 벌집 6개씩 늘어남
         int cnt = 1;
-        int zip = 1; // 벌집 수
+        int zip = 2; // 벌집 수
 
         if(N == 1){
             System.out.println(1);
