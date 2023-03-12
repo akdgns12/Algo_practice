@@ -18,24 +18,17 @@ public class BOJ9576_책나눠주기 {
         StringTokenizer st;
 
         int tc = Integer.parseInt(br.readLine());
-
-        for(int t=0; t<tc; t++){
+        list = new ArrayList<>();
+        for(int i=0; i<M; i++){
             st = new StringTokenizer(br.readLine());
-            N = Integer.parseInt(st.nextToken());
-            M = Integer.parseInt(st.nextToken());
+            int x = Integer.parseInt(st.nextToken());
+            int y = Integer.parseInt(st.nextToken());
 
-            list = new ArrayList<>();
-            for(int i=0; i<M; i++){
-                st = new StringTokenizer(br.readLine());
-                int x = Integer.parseInt(st.nextToken());
-                int y = Integer.parseInt(st.nextToken());
-
-                list.add(new Node(x, y));
-            }
-
-            Collections.sort(list);
-            sb.append(solve()).append("\n");
+            list.add(new Node(x, y));
         }
+
+        Collections.sort(list);
+        sb.append(solve()).append("\n");
 
         System.out.println(sb.toString());
     }
@@ -60,18 +53,18 @@ public class BOJ9576_책나눠주기 {
         return cnt;
     }
 
-    static class Node implements Comparable<Node>{
+    static class Node implements Comparable<Node> {
         int x, y;
-        public Node(int x, int y){
+
+        public Node(int x, int y) {
             this.x = x;
             this.y = y;
         }
 
         @Override
-        public int compareTo(Node o){
-            if(this.y == o.y) return this.x - o.y;
+        public int compareTo(Node o) {
+            if (this.y == o.y) return this.x - o.y;
             else return this.y - o.y;
         }
     }
 }
-
