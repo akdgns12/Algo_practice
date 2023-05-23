@@ -32,6 +32,12 @@ public class BOJ12886_돌그룹 {
         System.out.println(answer);
     }
 
+    /*
+        수 하나씩 그냥 넣고
+        나올 수 있는 모든 케이스 ㄱ?
+        방문 처리만 빡세게 하고?
+    */
+
     static int bfs(){
         while(!q.isEmpty()) {
             Node now = q.poll();
