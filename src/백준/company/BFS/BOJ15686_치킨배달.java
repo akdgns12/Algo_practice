@@ -45,7 +45,7 @@ public class BOJ15686_치킨배달 {
         System.out.println(ans);
     }
 
-    // 치킨집이면 골라서 계산하고, 가장 최솟값  ㄱㄱ
+    // 치킨집이면 골라서 계산하고, 가장 최솟값
     static void solve(int start, int cnt){
         if(cnt == M){ // M번 선택하면
             int result = 0;

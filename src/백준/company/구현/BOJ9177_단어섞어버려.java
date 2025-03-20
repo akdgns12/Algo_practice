@@ -1,6 +1,5 @@
 package 백준.company.구현;
 
-import sun.awt.image.ImageWatched;
 import 코테대비.DP.가장높은탑쌓기_LIS응용;
 
 import java.io.BufferedReader;
